@@ -106,10 +106,10 @@ public class SimulatorTest {
     // ASSERT
     assertThat(tabulated)
         .containsAtLeast(
-            new Count(HandRank.ROYAL_FLUSH, 0.2),
-            new Count(HandRank.STRAIGHT_FLUSH, 0.2),
-            new Count(HandRank.FOUR_OF_A_KIND, 0.2),
-            new Count(HandRank.FULL_HOUSE, 0.2),
-            new Count(HandRank.STRAIGHT, 0.2));
+            new Count(HandRank.ROYAL_FLUSH, 0.2, 0),
+            new Count(HandRank.STRAIGHT_FLUSH, 0.2, 0),
+            new Count(HandRank.FOUR_OF_A_KIND, 0.2, 0),
+            new Count(HandRank.FULL_HOUSE, 0.2, 0),
+            new Count(HandRank.STRAIGHT, 0.2, 0));
   }
 }

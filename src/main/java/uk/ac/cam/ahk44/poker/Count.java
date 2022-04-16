@@ -27,12 +27,15 @@ class Count {
 
   private final BigDecimal dealProbability;
 
-  Count(HandRank handRank, double dealProbability) {
+  private final BigDecimal winProbability;
+
+  Count(HandRank handRank, double dealProbability, double winProbability) {
     this.handRank = handRank;
     // use a big decimal here to only store results to 4 digits of precision (among other things
     // this makes the equals method a bit less dicey)
     MathContext mathContext = new MathContext(4, RoundingMode.HALF_UP);
     this.dealProbability = new BigDecimal(dealProbability, mathContext);
+    this.winProbability = new BigDecimal(winProbability, mathContext);
   }
 
   HandRank getHandRank() {
@@ -41,6 +44,10 @@ class Count {
 
   BigDecimal getDealProbability() {
     return dealProbability;
+  }
+
+  BigDecimal getWinProbability() {
+    return winProbability;
   }
 
   @Override
@@ -53,11 +60,11 @@ class Count {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Count count = (Count) o;
-    return handRank == count.handRank && dealProbability.equals(count.dealProbability);
+    return handRank == count.handRank && dealProbability.equals(count.dealProbability) && winProbability.equals(count.winProbability);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(handRank, dealProbability);
+    return Objects.hash(handRank, dealProbability, winProbability);
   }
 }

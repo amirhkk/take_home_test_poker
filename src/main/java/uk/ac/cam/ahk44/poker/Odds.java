@@ -29,15 +29,29 @@ class Odds {
   private Counter dealCount;
   private long totalDealt;
 
+  private Counter winCount;
+  private long totalWon;
+
   Odds() {
     this.dealCount = new Counter();
     this.totalDealt = 0;
+
+    this.winCount = new Counter();
+    this.totalWon = 0;
   }
 
   /** Record that we have been dealt this hand. */
   void dealt(Hand hand) {
     dealCount.inc(hand);
     totalDealt++;
+  }
+
+  /** Record that we have won using this hand. */
+  /** the probability of winning the game given that you have a hand of this rank */
+  /** = (probability of winning with this hand) / (probability of getting this hand) */
+  void won(Hand hand) {
+    winCount.inc(hand);
+    totalWon++;
   }
 
   /** Return a list of the probabilities for each defined hand rank. */
@@ -47,7 +61,10 @@ class Odds {
             handRank -> {
               double count = dealCount.getOrDefault(handRank, 0L);
               double dealProbabilty = totalDealt == 0 ? 0 : count / totalDealt;
-              return new Count(handRank, dealProbabilty);
+
+              double counti = winCount.getOrDefault(handRank, 0L);
+              double winProbability = count == 0 ? 0 : counti / count;
+              return new Count(handRank, dealProbabilty, winProbability);
             })
         .collect(Collectors.toList());
   }

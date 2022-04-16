@@ -16,10 +16,11 @@
 
 package uk.ac.cam.ahk44.poker;
 
+import java.util.Comparator;
 import java.util.List;
 
 /** A hand of cards dealt to the player. */
-public class Hand {
+public class Hand implements Comparable<Hand> {
 
   private final List<Card> cards;
   private final HandRank rank;
@@ -51,5 +52,20 @@ public class Hand {
 
   List<Card> getCards() {
     return cards;
+  }
+
+  @Override
+  public int compareTo(Hand o) {
+    if(rank.compareTo(o.rank) == 0){
+      List<Card> p1 = rank.highCardsIfMatching(cards);
+      List<Card> p2 = o.rank.highCardsIfMatching(o.cards);
+      for(int i = 0; i < p1.size(); i++){
+        int tmp = p1.get(i).getValue().compareTo(p2.get(i).getValue());
+        if(tmp == 0) continue;
+        return tmp;
+      }
+      return 0;
+    }
+    return -rank.compareTo(o.rank);
   }
 }

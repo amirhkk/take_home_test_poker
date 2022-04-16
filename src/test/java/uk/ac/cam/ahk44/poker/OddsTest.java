@@ -37,16 +37,16 @@ public class OddsTest {
     // ASSERT
     assertThat(tabulation)
         .containsExactly(
-            new Count(HandRank.ROYAL_FLUSH, 0),
-            new Count(HandRank.STRAIGHT_FLUSH, 0),
-            new Count(HandRank.FOUR_OF_A_KIND, 0),
-            new Count(HandRank.FULL_HOUSE, 0),
-            new Count(HandRank.FLUSH, 0),
-            new Count(HandRank.STRAIGHT, 0),
-            new Count(HandRank.THREE_OF_A_KIND, 0),
-            new Count(HandRank.TWO_PAIR, 0),
-            new Count(HandRank.ONE_PAIR, 0),
-            new Count(HandRank.HIGH_CARD, 0))
+            new Count(HandRank.ROYAL_FLUSH, 0, 0),
+            new Count(HandRank.STRAIGHT_FLUSH, 0, 0),
+            new Count(HandRank.FOUR_OF_A_KIND, 0, 0),
+            new Count(HandRank.FULL_HOUSE, 0, 0),
+            new Count(HandRank.FLUSH, 0, 0),
+            new Count(HandRank.STRAIGHT, 0, 0),
+            new Count(HandRank.THREE_OF_A_KIND, 0, 0),
+            new Count(HandRank.TWO_PAIR, 0, 0),
+            new Count(HandRank.ONE_PAIR, 0, 0),
+            new Count(HandRank.HIGH_CARD, 0, 0))
         .inOrder();
   }
 
@@ -64,6 +64,11 @@ public class OddsTest {
 
     // ASSERT
     assertThat(tabulation)
-        .containsAtLeast(new Count(HandRank.ROYAL_FLUSH, 0.5), new Count(HandRank.HIGH_CARD, 0.5));
+        .containsAtLeast(new Count(HandRank.ROYAL_FLUSH, 0.5, 0), new Count(HandRank.HIGH_CARD, 0.5, 0));
+  }
+
+  @Test
+  public void odds_countsWinningHands() {
+
   }
 }
