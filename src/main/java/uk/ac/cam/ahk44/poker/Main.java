@@ -24,10 +24,10 @@ public class Main {
 
 
     Deck deck = Deck.create();
-    List<Count> counts = Simulator.simulate(deck, 1000000);
+    List<Count> counts = Simulator.simulate(deck, 500000);
     for (Count c : counts) {
       System.out.printf("%20s %2.2e %2.2e %n", c.getHandRank(), c.getDealProbability().doubleValue(),
-              c.getWinProbability().doubleValue() / 10);
+              c.getWinProbability().doubleValue());
     }
   }
 }

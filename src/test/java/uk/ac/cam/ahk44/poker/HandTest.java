@@ -21,11 +21,7 @@ import static uk.ac.cam.ahk44.poker.Card.Suit.CLUBS;
 import static uk.ac.cam.ahk44.poker.Card.Suit.DIAMONDS;
 import static uk.ac.cam.ahk44.poker.Card.Suit.HEARTS;
 import static uk.ac.cam.ahk44.poker.Card.Suit.SPADES;
-import static uk.ac.cam.ahk44.poker.Card.Value.FIVE;
-import static uk.ac.cam.ahk44.poker.Card.Value.FOUR;
-import static uk.ac.cam.ahk44.poker.Card.Value.SIX;
-import static uk.ac.cam.ahk44.poker.Card.Value.THREE;
-import static uk.ac.cam.ahk44.poker.Card.Value.TWO;
+import static uk.ac.cam.ahk44.poker.Card.Value.*;
 
 import java.util.List;
 import org.junit.Test;
@@ -51,5 +47,46 @@ public class HandTest {
 
     // ASSERT
     assertThat(hand.getRank()).isEqualTo(HandRank.STRAIGHT);
+  }
+
+  @Test
+  public void comparing_works_different_ranks() {
+    // ARRANGE
+    Hand hand1 = Hand.create(HandRank.ROYAL_FLUSH);
+    Hand hand2 = Hand.create(HandRank.HIGH_CARD);
+
+    // ACT
+    int comp = hand1.compareTo(hand2);
+
+    // ASSERT
+    assertThat(comp).isAtLeast(1);
+  }
+
+  @Test
+  public void comparing_works_same_ranks() {
+    // ARRANGE
+    List<Card> cards1 =
+            List.of(
+                    new Card(DIAMONDS, TWO),
+                    new Card(HEARTS, TWO),
+                    new Card(CLUBS, THREE),
+                    new Card(SPADES, FIVE),
+                    new Card(SPADES, TEN));
+
+    List<Card> cards2 =
+            List.of(
+                    new Card(DIAMONDS, THREE),
+                    new Card(HEARTS, TEN),
+                    new Card(CLUBS, TWO),
+                    new Card(DIAMONDS, FOUR),
+                    new Card(SPADES, TWO));
+    Hand hand1 = Hand.create(cards1);
+    Hand hand2 = Hand.create(cards2);
+
+    // ACT
+    int comp = hand1.compareTo(hand2);
+
+    // ASSERT
+    assertThat(comp).isAtLeast(1);
   }
 }

@@ -68,7 +68,24 @@ public class OddsTest {
   }
 
   @Test
-  public void odds_countsWinningHands() {
+  public void odds_countsWonHands() {
+    // ARRANGE
+    Hand hand1 = Hand.create(HandRank.HIGH_CARD);
+    Hand hand2 = Hand.create(HandRank.ROYAL_FLUSH);
+    Odds odds = new Odds();
 
+    // ACT
+    odds.won(hand2);
+    odds.dealt(hand2);
+    odds.won(hand1);
+    odds.dealt(hand1);
+    odds.dealt(hand1);
+    odds.dealt(hand1);
+    odds.dealt(hand1);
+    List<Count> tabulation = odds.tabulateByRank();
+
+    // ASSERT
+    assertThat(tabulation)
+            .containsAtLeast(new Count(HandRank.ROYAL_FLUSH, 0.2, 1), new Count(HandRank.HIGH_CARD, 0.8, 0.25));
   }
 }
